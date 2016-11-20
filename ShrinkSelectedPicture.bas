@@ -10,18 +10,25 @@ Attribute VB_Name = "Module1"
 
 Sub ShrinkImage()
 
-    Dim MyPic As Shape
-    Dim UserSelection As Variant
-    Dim SizePerc As Double
-    SizePerc = 0.5
+Dim MyPic As Shape
+Dim UserSelection As Variant
+Dim SizePerc As Double
 
-    Set UserSelection = ActiveWindow.Selection
+	SizePerc = 0.5
+		
+	Set UserSelection = ActiveWindow.Selection
 
-    Set MyPic = ActiveSheet.Shapes(UserSelection.Name)
+	On Error GoTo NoPictureSelected:
+	Set MyPic = ActiveSheet.Shapes(UserSelection.Name)
 
-    MyPic.LockAspectRatio = msoTrue
+	MyPic.LockAspectRatio = msoTrue  'or msoFalse
 
-    MyPic.Width = MyPic.Width * SizePerc
+	MyPic.Width = MyPic.Width * SizePerc
+	
+Exit Sub
+
+NoPictureSelected:
+MsgBox ("No Picture/Shape Selected")
     
 End Sub
 
